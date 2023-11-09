@@ -56,6 +56,9 @@ class RayCasting:
             else:
                 depth = depth_hor
 
+            # remove fishbowl effect
+            depth *= math.cos(self.game.player.angle - ray_angle)
+
             # Projection
             proj_height = SCREEN_DIST / (depth + 0.0001)
 
