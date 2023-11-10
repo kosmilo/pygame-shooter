@@ -23,7 +23,6 @@ mini_map = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ]
 
-
 class Map:
     def __init__(self, game):
         self.game = game

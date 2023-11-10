@@ -2,7 +2,7 @@ import pygame as pg
 import math
 from settings import *
 
-
+# Raycasting for rendering the player view
 class RayCasting:
     def __init__(self, game):
         self.game = game

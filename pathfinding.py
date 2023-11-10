@@ -1,6 +1,6 @@
 from collections import deque
 
-
+# NPC pathfinding
 class Pathfinding:
     def __init__(self, game):
         self.game = game

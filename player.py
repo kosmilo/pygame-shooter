@@ -2,7 +2,6 @@ from settings import *
 import pygame as pg
 import math
 
-
 class Player:
     def __init__(self, game):
         self.game = game
@@ -20,15 +19,13 @@ class Player:
         self.health -= damage
         self.check_game_over()
 
-
+    
     def single_fire_event(self, event):
         if event.type == pg.MOUSEBUTTONDOWN:
             if event.button == 1 and not self.shot and not self.game.weapon.reloading:
                 # self.game.sound.weapon.play()
                 self.shot = True
                 self.game.weapon.reloading = True
-
-    
 
     def movement(self):
         # Calc angle and speed

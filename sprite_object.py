@@ -3,7 +3,7 @@ from settings import *
 import os
 from collections import deque
 
-
+# Base static sprite object
 class SpriteObject:
     def __init__(self, game, path='resources/sprites/static/candlebra.png',
                  pos=(10.5, 3.5), scale=0.7, shift=0.27):
@@ -52,7 +52,7 @@ class SpriteObject:
     def update(self):
         self.get_sprite()
 
-
+# Base animated sprite object
 class AnimatedSprite(SpriteObject):
     def __init__(self, game, path='resources/sprites/animated_sprites/test/0.png',
                  pos=(11.5, 3.5), scale=0.8, shift=0.16, animation_time=120):

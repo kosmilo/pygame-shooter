@@ -1,7 +1,7 @@
 import pygame as pg
 from settings import *
 
-
+# Handles rendering the screen
 class ObjectRenderer:
     def __init__(self, game):
         self.game = game
