@@ -10,6 +10,16 @@ class Player:
         self.x, self.y = PLAYER_POS
         self.angle = PLAYER_ANGLE
         self.shot = False
+        self.health = 100
+
+    def check_game_over(self):
+        if self.health < 1:
+            print('GAME OVER')
+
+    def get_damage(self, damage):
+        self.health -= damage
+        self.check_game_over()
+
 
     def single_fire_event(self, event):
         if event.type == pg.MOUSEBUTTONDOWN:
