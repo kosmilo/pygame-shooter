@@ -25,6 +25,7 @@ class NPC(AnimatedSprite):
         self.get_sprite()
         self.run_logic()
 
+    # Wall collision logic
     def check_wall(self, x, y):
         return (x, y) not in self.game.map.world_map
 
@@ -34,6 +35,7 @@ class NPC(AnimatedSprite):
         if self.check_wall(int(self.x), int(self.y + dy * self.size)):
             self.y += dy
 
+    # Movement and pathfindig
     def movement(self):
         next_pos = self.game.pathfinding.get_path(self.map_pos, self.game.player.map_pos)
         next_x, next_y = next_pos
@@ -48,19 +50,22 @@ class NPC(AnimatedSprite):
         if self.animation_trigger:
             self.game.player.get_damage(self.attack_damage)
 
-
+    # Play death animation and remove npc from npc list
     def animate_death(self):
         if not self.alive:
             if self.animation_trigger and self.frame_counter < len(self.death_images) - 1:
                 self.death_images.rotate(-1)
                 self.image = self.death_images[0]
                 self.frame_counter += 1
+            elif self.animation_trigger:
+                self.game.object_handler.npc_list.remove(self)
 
     def animate_pain(self):
         self.animate(self.pain_images)
         if self.animation_trigger:
             self.pain = False
 
+    # Check if play hit's npc and if yes, stop shot and handle damage
     def check_hit_in_npc(self):
         if self.game.player.shot:
             if HALF_WIDTH - self.sprite_half_width < self.screen_x < HALF_WIDTH + self.sprite_half_width:

@@ -15,13 +15,13 @@ class ObjectHandler:
         self.npc_positions = {}
 
         # Objects
-        add_sprite(SpriteObject(game, pos=(2, 2), shift=0.27))
-        add_sprite(AnimatedSprite(game, pos=(3, 3)))
+        add_sprite(Candlebra(game, pos=(2, 2)))
+        add_sprite(Torch(game, pos=(2, 3)))
 
         # NPCs
-        add_npc(NPC(game, pos=(2, 5)))
-        add_npc(NPC(game, pos=(3, 5)))
-        add_npc(NPC(game, pos=(3, 6)))
+        add_npc(NPC(game, pos=(5, 15)))
+        add_npc(NPC(game, pos=(5, 2)))
+        #add_npc(NPC(game, pos=(5, 6)))
 
     def update(self):
         self.npc_positions = {npc.map_pos for npc in self.npc_list if npc.alive}

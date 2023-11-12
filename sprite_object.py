@@ -3,7 +3,7 @@ from settings import *
 import os
 from collections import deque
 
-# Base static sprite object
+# Base static sprite object (Inherit from this)
 class SpriteObject:
     def __init__(self, game, path='resources/sprites/static/candlebra.png',
                  pos=(10.5, 3.5), scale=0.7, shift=0.27):
@@ -52,7 +52,7 @@ class SpriteObject:
     def update(self):
         self.get_sprite()
 
-# Base animated sprite object
+# Base animated sprite object (Inherit from this)
 class AnimatedSprite(SpriteObject):
     def __init__(self, game, path='resources/sprites/animated_sprites/test/0.png',
                  pos=(11.5, 3.5), scale=0.8, shift=0.16, animation_time=120):
@@ -87,3 +87,13 @@ class AnimatedSprite(SpriteObject):
                 img = pg.image.load(path + '/' + file_name).convert_alpha()
                 images.append(img)
         return images
+
+# Static sprite objects
+class Candlebra(SpriteObject):
+    def __init__(self, game, path='resources/sprites/static/candlebra.png', pos=(2, 2), scale=0.7, shift=0.27):
+        super().__init__(game, path, pos, scale, shift)
+
+# Animated sprite objects
+class Torch(AnimatedSprite):
+    def __init__(self, game, path='resources/sprites/animated_sprites/test/0.png', pos=(2, 2), scale=0.8, shift=0.16, animation_time=120):
+        super().__init__(game, path, pos, scale, shift, animation_time)
