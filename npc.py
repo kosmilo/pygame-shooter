@@ -104,7 +104,7 @@ class NPC(AnimatedSprite):
 
         ray_angle = self.theta
 
-        sin_a = math.sin(ray_angle)
+        sin_a = math.sin(ray_angle) + 0.00001
         cos_a = math.cos(ray_angle)
 
         # horizontals
