@@ -9,7 +9,7 @@ class Player:
         self.x, self.y = PLAYER_POS
         self.angle = PLAYER_ANGLE
         self.shot = False
-        self.health = 100
+        self.health = 10000
 
     def check_game_over(self):
         if self.health < 1:
@@ -68,7 +68,8 @@ class Player:
         # pg.draw.line(self.game.screen, 'yellow', (self.x * 100, self.y * 100),
         #             (self.x * 100 + WIDTH * math.cos(self.angle),
         #              self.y * 100 + WIDTH * math.sin(self.angle)), 2)
-        pg.draw.circle(self.game.screen, "green", (self.x * 100, self.y * 100), 15)
+        # pg.draw.circle(self.game.screen, "green", (self.x * 100, self.y * 100), 15)
+        pass
 
     def mouse_control(self):
         mx, my = pg.mouse.get_pos()

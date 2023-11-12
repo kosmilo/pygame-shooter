@@ -10,6 +10,7 @@ from object_handler import *
 from weapon import *
 from sound import *
 from pathfinding import *
+from crosshair import *
 
 
 # Define game
@@ -30,6 +31,7 @@ class Game:
         self.weapon = Weapon(self)
         self.sound = Sound(self)
         self.pathfinding = Pathfinding(self)
+        self.crosshair = Crosshair(self)
 
     def update(self):
         self.player.update()
@@ -44,6 +46,7 @@ class Game:
     def draw(self):
         self.object_renderer.draw()
         self.weapon.draw()
+        self.crosshair.draw()
         # self.map.draw()
         # self.player.draw()
 
