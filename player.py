@@ -11,6 +11,9 @@ class Player:
         self.shot = False
         self.health = 10000
 
+        # Set to avoid errors
+        self.rel = 0
+
     def check_game_over(self):
         if self.health < 1:
             print('GAME OVER')
@@ -81,7 +84,7 @@ class Player:
 
     def update(self):
         self.movement()
-        self.mouse_control()
+        # self.mouse_control()
 
     @property
     def pos(self):

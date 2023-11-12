@@ -38,6 +38,7 @@ class Game:
         self.raycasting.update()
         self.object_handler.update()
         self.weapon.update()
+        self.crosshair.update()
         pg.display.flip()
         self.delta_time = self.clock.tick(FPS)
 

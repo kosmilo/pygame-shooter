@@ -68,7 +68,7 @@ class NPC(AnimatedSprite):
     # Check if play hit's npc and if yes, stop shot and handle damage
     def check_hit_in_npc(self):
         if self.game.player.shot:
-            if HALF_WIDTH - self.sprite_half_width < self.screen_x < HALF_WIDTH + self.sprite_half_width:
+            if self.game.crosshair.x - self.sprite_half_width < self.screen_x < self.game.crosshair.x + self.sprite_half_width:
                 self.game.player.shot = False
                 self.pain = True
                 self.health -= self.game.weapon.damage

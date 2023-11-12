@@ -10,3 +10,10 @@ class Crosshair:
 
     def draw(self):
         pg.draw.rect(self.game.screen, 'red', [(self.x - self.width / 2), (self.y - self.height / 2), self.width, self.height], 2)
+
+    def aim_control(self):
+        mx, my = pg.mouse.get_pos()
+        self.pos = self.x, self.y = mx, my
+
+    def update(self):
+        self.aim_control()
