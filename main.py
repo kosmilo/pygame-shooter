@@ -1,58 +1,24 @@
 import pygame as pg
 import sys
 from settings import *
-from map import *
-from player import *
-from raycasting import *
-from object_renderer import *
-from sprite_object import *
-from object_handler import *
-from weapon import *
-from sound import *
-from pathfinding import *
-from crosshair import *
-
+from game import *
 
 # Define game
-class Game:
+class Session:
     def __init__(self):
         pg.init()
         self.screen = pg.display.set_mode(RES)
         self.clock = pg.time.Clock()
         self.delta_time = 1
-        self.new_game()
 
-    def new_game(self):
-        self.map = Map(self)
-        self.player = Player(self)
-        self.object_renderer = ObjectRenderer(self)
-        self.raycasting = RayCasting(self)
-        self.object_handler = ObjectHandler(self)
-        self.weapon = Weapon(self)
-        self.sound = Sound(self)
-        self.pathfinding = Pathfinding(self)
-        self.crosshair = Crosshair(self)
+        self.game_font = pg.font.SysFont('Comic Sans MS', 30)
+        self.info_text = self.game_font.render('Press S to start', False, (200, 200, 200))
 
-    def update(self):
-        self.player.update()
-        self.raycasting.update()
-        self.object_handler.update()
-        self.weapon.update()
-        self.crosshair.update()
-        pg.display.flip()
-        self.delta_time = self.clock.tick(FPS)
-
-        pg.display.set_caption(f"fps: {self.clock.get_fps() :.1f}")
-
-    def draw(self):
-        self.object_renderer.draw()
-        self.weapon.draw()
-        self.crosshair.draw()
-        # self.map.draw()
-        # self.player.draw()
+        self.run()
 
     # Get inputs
     def check_events(self):
+        keys = pg.key.get_pressed()
         for event in pg.event.get():
             # Quit
             if event.type == pg.QUIT or (
@@ -60,18 +26,21 @@ class Game:
             ):
                 pg.quit()
                 sys.exit()
-            # Shoot
-            self.player.single_fire_event(event)
+            # Start a new game
+            elif keys[pg.K_s]:
+                self.game = Game(self)
 
-    # Game loop
+    def draw_menu(self):
+        self.screen.fill((0, 0, 0))
+        self.screen.blit(self.info_text, (0,0))
+        pg.display.flip()
+
+
     def run(self):
         while True:
             self.check_events()
-            self.update()
-            self.draw()
-
+            self.draw_menu()
 
 # Start game
 if __name__ == "__main__":
-    game = Game()
-    game.run()
+    session = Session()
