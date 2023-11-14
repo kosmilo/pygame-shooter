@@ -83,7 +83,7 @@ class NPC(AnimatedSprite):
             self.check_hit_in_npc()
             if self.pain:
                 self.animate_pain()
-            elif self.ray_cast_player_npc() and self.dist < self.attack_dist:
+            elif self.ray_cast_player_npc() and self.dist < self.attack_dist and -self.IMAGE_HALF_WIDTH < self.screen_x < (WIDTH + self.IMAGE_HALF_WIDTH) and self.norm_dist > 0.5:
                 self.animate(self.attack_images)
                 self.attack()
             else:
