@@ -11,6 +11,7 @@ from weapon import *
 from sound import *
 from pathfinding import *
 from crosshair import *
+from wave import *
 
 # Define game
 class Game:
@@ -33,6 +34,8 @@ class Game:
         self.sound = Sound(self)
         self.pathfinding = Pathfinding(self)
         self.crosshair = Crosshair(self)
+        enemies = [NPC(self, pos=(8, 3)), NPC(self, pos=(9, 5))]
+        self.wave = Wave(self, 100000, enemies)
 
     def update(self):
         self.player.update()
@@ -49,8 +52,6 @@ class Game:
         self.object_renderer.draw()
         self.weapon.draw()
         self.crosshair.draw()
-        # self.map.draw()
-        # self.player.draw()
 
     # Get inputs
     def check_events(self):
@@ -69,6 +70,9 @@ class Game:
         while self.running:
             self.check_events()
             self.update()
+            self.wave.update()
             self.draw()
-            if len(self.object_handler.npc_list) < 1:
+            if self.wave.isFinished == True:
+                # Get new wave or end game
+                # self.wave = Wave(self, 100000, [])
                 self.running = False
