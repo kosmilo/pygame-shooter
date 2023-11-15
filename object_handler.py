@@ -2,6 +2,7 @@ from sprite_object import *
 from npc import *
 
 # Keeps track of objects in runtime
+# Add NPCs to waves, not directly here
 class ObjectHandler:
     def __init__(self, game):
         self.game = game
@@ -17,11 +18,6 @@ class ObjectHandler:
         # Objects
         add_sprite(Candlebra(game, pos=(2, 2)))
         add_sprite(Torch(game, pos=(2, 3)))
-
-        # NPCs
-        # add_npc(NPC(game, pos=(8, 3)))
-        # add_npc(NPC(game, pos=(9, 5)))
-        # add_npc(NPC(game, pos=(9, 4)))
 
     def update(self):
         self.npc_positions = {npc.map_pos for npc in self.npc_list if npc.alive}
