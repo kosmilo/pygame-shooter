@@ -3,6 +3,13 @@ import pygame as pg
 import math
 
 class Player:
+
+    HEALTH_BAR_WIDTH = 100
+    HEALTH_BAR_HEIGHT = 10
+    HEALTH_BAR_X = 50
+    HEALTH_BAR_Y = 50
+    HEALTH_BAR_COLOR = (0, 255, 0)
+
     def __init__(self, game):
         self.game = game
         pg.mouse.set_visible(False)
@@ -10,6 +17,7 @@ class Player:
         self.angle = PLAYER_ANGLE
         self.shot = False
         self.health = 10000
+        self.health_bar_width = self.HEALTH_BAR_WIDTH
 
         # Set to avoid errors
         self.rel = 0
@@ -67,12 +75,17 @@ class Player:
         if self.check_wall(int(self.x), int(self.y + dy * scale)):
             self.y += dy
 
+    def draw_health_bar(self):
+        health_bar_rect = pg.Rect(self.HEALTH_BAR_X, self.HEALTH_BAR_Y, self.health_bar_width, self.HEALTH_BAR_HEIGHT)
+        pg.draw.rect(self.game.screen, self.HEALTH_BAR_COLOR, health_bar_rect)
+
     def draw(self):
         # pg.draw.line(self.game.screen, 'yellow', (self.x * 100, self.y * 100),
         #             (self.x * 100 + WIDTH * math.cos(self.angle),
         #              self.y * 100 + WIDTH * math.sin(self.angle)), 2)
         # pg.draw.circle(self.game.screen, "green", (self.x * 100, self.y * 100), 15)
-        pass
+        self.draw_health_bar()
+        #pass
 
     def mouse_control(self):
         mx, my = pg.mouse.get_pos()
