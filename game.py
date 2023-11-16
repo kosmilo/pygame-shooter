@@ -34,17 +34,8 @@ class Game:
         self.sound = Sound(self)
         self.pathfinding = Pathfinding(self)
         self.crosshair = Crosshair(self)
-        self.waves = self.get_waves()
-        self.cur_wave = 0
-
-    def get_waves(self):
-        # Rework this :D
-        enemies = [NPC(self, pos=(9, 5))]
-        wave1 = Wave(self, 100000, enemies)
-        enemies2 = [NPC(self, pos=(9, 5))]
-        wave2 = Wave(self, 100000, enemies2)
-        waves = [wave1, wave2]
-        return waves
+        enemies = [NPC(self, pos=(8, 3)), NPC(self, pos=(9, 5))]
+        self.wave = Wave(self, 100000, enemies)
 
     def update(self):
         self.player.update()
@@ -79,16 +70,9 @@ class Game:
         while self.running:
             self.check_events()
             self.update()
-            self.waves[self.cur_wave].update()
+            self.wave.update()
             self.draw()
-
-            if self.waves[self.cur_wave].isFinished == True:
+            if self.wave.isFinished == True:
                 # Get new wave or end game
-                self.cur_wave += 1
-
-                if self.cur_wave == len(self.waves):
-                    print('ALL WAVES FINISHED')
-                    self.running = False
-                else:
-                    print('STARTING A NEW WAVE')
-                    print(f'Wave num: {self.cur_wave}')
+                # self.wave = Wave(self, 100000, [])
+                self.running = False
