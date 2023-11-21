@@ -20,7 +20,9 @@ class Session:
         self.menus = {
             'main_menu': MainMenu(self),
             'settings': SettingsMenu(self),
-            'tutorial': TutorialMenu(self)
+            'tutorial': TutorialMenu(self),
+            'game_over': GameOverMenu(self),
+            'empty': Menu(self)
         }
 
         self.run()
