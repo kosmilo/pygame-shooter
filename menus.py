@@ -107,14 +107,19 @@ class TutorialMenu(Menu):
 class GameOverMenu(Menu):
     def __init__(self, session):
         Menu.__init__(self, session)
+        self.score_counter = 0
 
         self.title_text = self.title_font.render('GAME OVER', True, 'Red')
         self.title_rect = self.title_text.get_rect(midtop=self.screen.get_rect().midtop)
+
+        self.score_text = self.game_font.render('your score: {}'.format(self.score_counter), True, 'White')
+        self.score_rect = self.score_text.get_rect(midtop=self.title_rect.midbottom)
 
         self.return_button = Button(self, WIDTH/2-250/2, HEIGHT-100, 250, 100, 'return', self.open_main_menu)
 
     def draw_menu(self):
         self.screen.fill((0,0,0))
         self.screen.blit(self.title_text, self.title_rect)
+        self.screen.blit(self.score_text, self.score_rect)
 
         self.return_button.process()
