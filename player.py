@@ -10,6 +10,7 @@ class Player:
         self.angle = PLAYER_ANGLE
         self.shot = False
         self.health = 10000
+        self.auto_rotate = True # camera rotation use mouse or automate
 
         # Set to avoid errors
         self.rel = 0
@@ -82,9 +83,39 @@ class Player:
         self.rel = max(-MOUSE_MAX_REL, min(MOUSE_MAX_REL, self.rel))
         self.angle += self.rel * MOUSE_SENSITIVITY * self.game.delta_time
 
+
+    # camera rotation to NPC   ATTENTION: you can change type of rotation by pressin "k"
+    # button, it is automatically adjust to rotate forwards NPC's, but if "K" is pressed
+    # you can rotate the camera wht your mouse/cursor  Future whit hands ??
+
     def update(self):
         self.movement()
-        # self.mouse_control()
+
+        # Shec if "k" button is pressed
+        keys = pg.key.get_pressed()
+        if keys[pg.K_k]:
+            self.auto_rotate = not self.auto_rotate  # Change automatically rotation
+
+        # Update Camera angle
+        if self.auto_rotate:
+            self.auto_rotate_camera()
+        else:
+            self.mouse_control()
+
+    def auto_rotate_camera(self):
+        if self.game.object_handler.npc_list:
+            avg_npc_pos = (
+                sum(npc.map_pos[0] for npc in self.game.object_handler.npc_list) / len(self.game.object_handler.npc_list),
+                sum(npc.map_pos[1] for npc in self.game.object_handler.npc_list) / len(self.game.object_handler.npc_list)
+            )
+
+            angle_to_avg_npc = math.atan2(avg_npc_pos[1] - self.y, avg_npc_pos[0] - self.x)
+
+            smoothing_factor = 0.1
+
+            angle_difference = (angle_to_avg_npc - self.angle + math.pi) % (2 * math.pi) - math.pi
+            self.angle += angle_difference * smoothing_factor
+
 
     @property
     def pos(self):
