@@ -146,10 +146,9 @@ class Player:
         self.angle += self.rel * MOUSE_SENSITIVITY * self.game.delta_time
 
     def update(self):
-        # self.movement()
-        self.move_to_target_positions()
-        # self.mouse_control()
-        print(self.pos)
+        self.movement()
+        # self.move_to_target_positions()
+        self.mouse_control()
 
     @property
     def pos(self):

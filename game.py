@@ -11,6 +11,7 @@ from weapon import *
 from sound import *
 from pathfinding import *
 from crosshair import *
+from score_counter import *
 
 # Define game
 class Game:
@@ -33,6 +34,7 @@ class Game:
         self.sound = Sound(self)
         self.pathfinding = Pathfinding(self)
         self.crosshair = Crosshair(self)
+        self.score_counter = ScoreCounter(self)
 
     def update(self):
         self.player.update()
@@ -49,6 +51,7 @@ class Game:
         self.object_renderer.draw()
         self.weapon.draw()
         self.crosshair.draw()
+        self.score_counter.draw()
         # self.map.draw()
         # self.player.draw()
 
