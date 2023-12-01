@@ -74,4 +74,6 @@ class Game:
             self.update()
             self.draw()
             if len(self.object_handler.npc_list) < 1:
+                self.session.change_current_menu('game_over')
                 self.running = False
+
