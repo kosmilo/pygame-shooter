@@ -3,13 +3,12 @@ from sprite_object import *
 # NPC base (inherit actual enemies from this)
 class NPC(AnimatedSprite):
     def __init__(self, game, path="resources/sprites/npc/test/0.png", pos=(2, 2), scale=1, shift=0, 
-                 health = 100, attack_dist=2, attack_damage = 5, speed = 0.03):
+                 health = 100, attack_dist=2, attack_damage = 5, speed = 0.04):
         super().__init__(game, path, pos, scale, shift, animation_time=180)
         self.attack_images = self.get_images(self.path + '/attack')
         self.death_images = self.get_images(self.path + '/death')
         self.pain_images = self.get_images(self.path + '/pain')
         self.walk_images = self.get_images(self.path + '/walk')
-
         self.health = health
         self.attack_dist = attack_dist
         self.speed = speed
