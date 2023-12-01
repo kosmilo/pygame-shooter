@@ -12,7 +12,7 @@ class Player:
         self.shot = False
         self.health = 10000
 
-        self.target_positions = [(6, 6), (12, 6), 'stop', (5, 6), 'stop', (8, 4), (1, 1)]
+        self.target_positions = ['stop', (6, 6), (12, 6), 'stop', (5, 6), 'stop', (8, 4), (1, 1)]
         self.current_point_index = 0
         self.wait_tracker = 0
 
