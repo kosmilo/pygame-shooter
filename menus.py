@@ -30,11 +30,8 @@ class MainMenu(Menu):
         self.title_text = self.title_font.render('GAME TITLE', True, (200, 0, 0))
         self.title_rect = self.title_text.get_rect(midtop=self.screen.get_rect().midtop)
 
-        self.info_text = self.game_font.render('your score: 00000', False, (200, 200, 200))
-        self.info_rect = self.info_text.get_rect(midtop=self.title_rect.midbottom)
-
         self.hs_title_text = self.game_font.render('high scores', True, (200, 0, 0))
-        self.hs_title_rect = self.hs_title_text.get_rect(topleft=self.info_rect.bottomleft)
+        self.hs_title_rect = self.hs_title_text.get_rect(midtop=self.title_rect.midbottom)
 
         self.tutorial_button = Button(self, WIDTH-250, HEIGHT-100, 250, 100, 'tutorial', self.open_tutorial_menu)
 
@@ -43,11 +40,11 @@ class MainMenu(Menu):
         self.start_game_button = Button(self, WIDTH/2-350/2, HEIGHT-100, 350, 100, 'start game', self.session.start_game)
 
         self.hs_data = [
-            (1, 'player1', 1000),
-            (2, 'player2', 900),
-            (3, 'player3', 800),
-            (4, 'player4', 700),
-            (5, 'player5', 600)
+            (1, 'aaa', 1000),
+            (2, 'bbb', 900),
+            (3, 'ccc', 800),
+            (4, 'ddd', 700),
+            (5, 'eee', 600)
         ]
 
     def draw_menu(self):
@@ -56,8 +53,6 @@ class MainMenu(Menu):
         self.draw_high_scores()
 
         self.screen.blit(self.title_text, self.title_rect)
-        self.screen.blit(self.info_text, self.info_rect)
-
         self.screen.blit(self.hs_title_text, self.hs_title_rect)
 
         self.tutorial_button.process()
@@ -107,12 +102,13 @@ class TutorialMenu(Menu):
 class GameOverMenu(Menu):
     def __init__(self, session):
         Menu.__init__(self, session)
-        self.score_counter = 0
+        self.score_counter = session.game.score_counter
+        self.score = self.score_counter.get_score()
 
         self.title_text = self.title_font.render('GAME OVER', True, 'Red')
         self.title_rect = self.title_text.get_rect(midtop=self.screen.get_rect().midtop)
 
-        self.score_text = self.game_font.render('your score: {}'.format(self.score_counter), True, 'White')
+        self.score_text = self.game_font.render('your score: {}'.format(self.score), True, 'White')
         self.score_rect = self.score_text.get_rect(midtop=self.title_rect.midbottom)
 
         self.return_button = Button(self, WIDTH/2-250/2, HEIGHT-100, 250, 100, 'return', self.open_main_menu)
