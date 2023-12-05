@@ -11,6 +11,7 @@ from weapon import *
 from sound import *
 from pathfinding import *
 from crosshair import *
+from hand_tracking import HandTracking
 
 # Define game
 class Game:
@@ -33,8 +34,10 @@ class Game:
         self.sound = Sound(self)
         self.pathfinding = Pathfinding(self)
         self.crosshair = Crosshair(self)
+        self.hand_tracking = HandTracking(self)
 
     def update(self):
+        self.hand_tracking.update()
         self.player.update()
         self.raycasting.update()
         self.object_handler.update()
