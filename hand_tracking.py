@@ -2,7 +2,7 @@ import cv2
 import mediapipe as mp
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
-from main import *
+from settings import *
 
 BaseOptions = mp.tasks.BaseOptions
 GestureRecognizer = mp.tasks.vision.GestureRecognizer
@@ -13,8 +13,8 @@ mp_draw = mp.solutions.drawing_utils
 
 
 class HandTracking:
-    def __init__(self, game):
-        self.game = game
+    def __init__(self, session):
+        self.session = session
         self.model_path = 'resources/gesture_recognizer.task'
         self.vid = cv2.VideoCapture(0)
         self.options = GestureRecognizerOptions(
@@ -48,13 +48,14 @@ class HandTracking:
             pg.mouse.set_pos(screen_x, screen_y)
 
             # this is for debugging purposes
-            print('timestamp: {}, gesture: {}, x: {} out of {}, y: {} out of {}'.format(
-                timestamp_ms, self.get_hand_gesture_name(result), screen_x, WIDTH, screen_y, HEIGHT))
+            # print('timestamp: {}, gesture: {}, x: {} out of {}, y: {} out of {}'.format(
+            #    timestamp_ms, self.get_hand_gesture_name(result), screen_x, WIDTH, screen_y, HEIGHT))
 
-            # if the gesture is a closed fist, activate event to be used in place of mouse click
+            # if the gesture is a closed fist, simulate mouse click
             if self.get_hand_gesture_name(result) == 'Closed_Fist':
-                closed_fist_event = pg.event.Event(CLOSED_FIST)
-                pg.event.post(closed_fist_event)
+                mouse_click_event = pg.event.Event(pg.MOUSEBUTTONDOWN, {'pos': (screen_x, screen_y), 'button': 1})
+                pg.event.post(mouse_click_event)
+                print('closed fist/simulated left mouse click at {}, {}'.format(screen_x, screen_y))
         else:
             print('hand not visible')  # this can be replaced with a warning or some such
 
@@ -80,4 +81,4 @@ class HandTracking:
         ret, frame = self.vid.read()  # capture video
         mp_frame = mp.Image(image_format=mp.ImageFormat.SRGB, data=frame)  # convert frame to mp image
         self.recognizer.recognize_async(mp_frame, pg.time.get_ticks())  # use gesture recognition on the mp image
-        cv2.imshow('frame', frame)  # display camera feed
+        # cv2.imshow('frame', frame)  # display camera feed

@@ -34,10 +34,8 @@ class Game:
         self.sound = Sound(self)
         self.pathfinding = Pathfinding(self)
         self.crosshair = Crosshair(self)
-        self.hand_tracking = HandTracking(self)
 
     def update(self):
-        self.hand_tracking.update()
         self.player.update()
         self.raycasting.update()
         self.object_handler.update()

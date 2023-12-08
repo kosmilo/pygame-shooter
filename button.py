@@ -6,7 +6,7 @@ class Button:
 
     # when making a new button: make sure to include its button.process() in an update loop like you would a blit()
     # otherwise the button won't render or work
-    def __init__(self, menu, x, y, width, height, button_text='Button', onclick_function=None, one_press=False):
+    def __init__(self, menu, x, y, width, height, button_text='Button', onclick_function=None, one_press=True):
         self.x = x
         self.y = y
         self.width = width
@@ -37,6 +37,7 @@ class Button:
         if self.button_rect.collidepoint(mouse_pos):
             self.button_surface.fill(self.fill_colors['hover'])
             if pg.mouse.get_pressed(num_buttons=3)[0]:
+                print('button pressed')
                 self.button_surface.fill(self.fill_colors['pressed'])
                 if self.one_press:
                     self.onclick_function()

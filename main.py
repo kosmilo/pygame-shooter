@@ -3,6 +3,7 @@ import sys
 from settings import *
 from game import *
 from menus import *
+from hand_tracking import HandTracking
 
 
 # Define game
@@ -25,6 +26,8 @@ class Session:
             'empty': Menu(self)
         }
 
+        self.hand_tracking = HandTracking(self)
+
         self.run()
 
     # Get inputs
@@ -42,6 +45,7 @@ class Session:
         while True:
             self.check_events()
             self.menus[self.current_menu].draw_menu()
+            self.hand_tracking.update()
 
             pg.display.flip()
 
