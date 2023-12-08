@@ -20,7 +20,7 @@ class ObjectHandler:
 
         # NPCs
         add_npc(NPC(game, pos=(8, 3)))
-        add_npc(NPC(game, path="resources/sprites/npc/snake/0.png", pos=(8, 5), attack_dist=1, health=150, attack_damage=4))
+        add_npc(NPC(game, path="resources/sprites/npc/angel/0.png", pos=(8, 5), scale=2, attack_dist=3, health=100, attack_damage=6))
         add_npc(NPC(game, path="resources/sprites/npc/snake/0.png", pos=(9, 4), attack_dist=1, health=150, attack_damage=4))
         add_npc(NPC(game, path="resources/sprites/npc/snake/0.png", pos=(8, 4), attack_dist=1, health=150, attack_damage=4))
 
