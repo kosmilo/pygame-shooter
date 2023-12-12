@@ -76,6 +76,7 @@ class Game:
 
     def game_over(self):
         self.running = False
+        self.session.change_current_menu('game_over')
 
     # Game loop
     def run(self):

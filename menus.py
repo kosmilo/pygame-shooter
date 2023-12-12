@@ -6,7 +6,7 @@ from button import *
 class Menu:
     def __init__(self, session):
         self.session = session
-        self.game_font = session.game_font
+        self.menu_font = session.menu_font
         self.title_font = session.title_font
         self.screen = session.screen
 
@@ -30,7 +30,7 @@ class MainMenu(Menu):
         self.title_text = self.title_font.render('GAME TITLE', True, (200, 0, 0))
         self.title_rect = self.title_text.get_rect(midtop=self.screen.get_rect().midtop)
 
-        self.hs_title_text = self.game_font.render('high scores', True, (200, 0, 0))
+        self.hs_title_text = self.menu_font.render('high scores', True, (200, 0, 0))
         self.hs_title_rect = self.hs_title_text.get_rect(midtop=self.title_rect.midbottom)
 
         self.tutorial_button = Button(self, WIDTH-250, HEIGHT-100, 250, 100, 'tutorial', self.open_tutorial_menu)
@@ -62,7 +62,7 @@ class MainMenu(Menu):
     def draw_high_scores(self):
         for i, (rank, name, score) in enumerate(self.hs_data):
             text = f"{rank}. {name}: {score}"
-            score_row_text = self.game_font.render(text, True, (200, 200, 200))
+            score_row_text = self.menu_font.render(text, True, (200, 200, 200))
 
             self.screen.blit(score_row_text, (self.hs_title_rect.bottomleft[0], self.hs_title_rect.bottomleft[1]+i*40))
 
@@ -108,7 +108,7 @@ class GameOverMenu(Menu):
         self.title_text = self.title_font.render('GAME OVER', True, 'Red')
         self.title_rect = self.title_text.get_rect(midtop=self.screen.get_rect().midtop)
 
-        self.score_text = self.game_font.render('your score: {}'.format(self.score), True, 'White')
+        self.score_text = self.menu_font.render('your score: {}'.format(self.score), True, 'White')
         self.score_rect = self.score_text.get_rect(midtop=self.title_rect.midbottom)
 
         self.return_button = Button(self, WIDTH/2-250/2, HEIGHT-100, 250, 100, 'return', self.open_main_menu)

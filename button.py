@@ -14,7 +14,7 @@ class Button:
         self.onclick_function = onclick_function
         self.one_press = one_press
         self.already_pressed = False
-        self.game_font = menu.game_font
+        self.menu_font = menu.menu_font
         self.screen = menu.screen
 
         self.fill_colors = {
@@ -26,7 +26,7 @@ class Button:
         self.button_surface = pg.Surface((self.width, self.height))
         self.button_rect = pg.Rect((x, y), (self.width, self.height))
 
-        self.button_surf = self.game_font.render(button_text, True, (20, 20, 20))
+        self.button_surf = self.menu_font.render(button_text, True, (20, 20, 20))
 
     def process(self):
         mouse_pos = pg.mouse.get_pos()

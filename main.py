@@ -13,8 +13,9 @@ class Session:
         self.clock = pg.time.Clock()
         self.delta_time = 1
 
-        self.game_font = pg.font.Font('resources/fonts/vermin_vibes_1989.ttf', 50)
+        self.menu_font = pg.font.Font('resources/fonts/vermin_vibes_1989.ttf', 50)
         self.title_font = pg.font.Font('resources/fonts/vermin_vibes_1989.ttf', 200)
+        self.ui_font = pg.font.Font('resources/fonts/vermin_vibes_1989.ttf', 40)
 
         self.current_menu = 'main_menu'
         self.menus = {
