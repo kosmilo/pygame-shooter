@@ -11,7 +11,6 @@ class Player:
         self.angle = PLAYER_ANGLE
         self.shot = False
         self.health = 10000
-
         self.target_positions = [((6, 6), (3, 4)),
                                  ((7, 2), (3, 2))]
         self.cur_point_in = 0  # current point index

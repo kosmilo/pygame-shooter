@@ -21,7 +21,6 @@ class Session:
             'main_menu': MainMenu(self),
             'settings': SettingsMenu(self),
             'tutorial': TutorialMenu(self),
-            'game_over': GameOverMenu(self),
             'empty': Menu(self)
         }
 
@@ -47,6 +46,7 @@ class Session:
 
     def start_game(self):
         self.game = Game(self)
+        self.menus.update({'game_over': GameOverMenu(self)})
 
     def change_current_menu(self, new_menu):
         self.current_menu = new_menu
