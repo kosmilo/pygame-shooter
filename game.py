@@ -12,6 +12,8 @@ from sound import *
 from pathfinding import *
 from crosshair import *
 from score_counter import *
+from wave import WaveManager
+from timer import Timer
 
 # Define game
 class Game:
@@ -26,6 +28,7 @@ class Game:
 
     def new_game(self):
         self.map = Map(self)
+        self.timer = Timer(self)
         self.player = Player(self)
         self.object_renderer = ObjectRenderer(self)
         self.raycasting = RayCasting(self)
@@ -35,6 +38,7 @@ class Game:
         self.pathfinding = Pathfinding(self)
         self.crosshair = Crosshair(self)
         self.score_counter = ScoreCounter(self)
+        self.wave_manager = WaveManager(self)
 
     def update(self):
         self.player.update()
@@ -42,6 +46,8 @@ class Game:
         self.object_handler.update()
         self.weapon.update()
         self.crosshair.update()
+        self.wave_manager.update()
+        self.timer.update(self.delta_time)
         pg.display.flip()
         self.delta_time = self.clock.tick(FPS)
 
@@ -52,6 +58,7 @@ class Game:
         self.weapon.draw()
         self.crosshair.draw()
         self.score_counter.draw()
+        self.timer.draw()
         # self.map.draw()
         # self.player.draw()
 
@@ -67,13 +74,13 @@ class Game:
             # Shoot
             self.player.single_fire_event(event)
 
+    def game_over(self):
+        self.running = False
+
     # Game loop
     def run(self):
         while self.running:
             self.check_events()
             self.update()
             self.draw()
-            if len(self.object_handler.npc_list) < 1:
-                self.session.change_current_menu('game_over')
-                self.running = False
 
