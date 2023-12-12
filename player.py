@@ -19,7 +19,6 @@ class HealthBar:
          x = (screen.get_width() - self.width) // 2
          y = 10
          
-        # Piirrä terveyspalkki
          pg.draw.rect(screen, self.health_bar_color, (x, y, self.width, self.height))
          pg.draw.rect(screen, self.border_color, (x, y, 100, self.height), 2)
 
