@@ -2,6 +2,8 @@ import pygame as pg
 import sys
 from settings import *
 from game import *
+from menus import *
+
 
 # Define game
 class Session:
@@ -11,8 +13,17 @@ class Session:
         self.clock = pg.time.Clock()
         self.delta_time = 1
 
-        self.game_font = pg.font.SysFont('Comic Sans MS', 30)
-        self.info_text = self.game_font.render('Press S to start', False, (200, 200, 200))
+        self.game_font = pg.font.Font('resources/fonts/vermin_vibes_1989.ttf', 50)
+        self.title_font = pg.font.Font('resources/fonts/vermin_vibes_1989.ttf', 200)
+
+        self.current_menu = 'main_menu'
+        self.menus = {
+            'main_menu': MainMenu(self),
+            'settings': SettingsMenu(self),
+            'tutorial': TutorialMenu(self),
+            'game_over': GameOverMenu(self),
+            'empty': Menu(self)
+        }
 
         self.run()
 
@@ -26,20 +37,20 @@ class Session:
             ):
                 pg.quit()
                 sys.exit()
-            # Start a new game
-            elif keys[pg.K_s]:
-                self.game = Game(self)
-
-    def draw_menu(self):
-        self.screen.fill((0, 0, 0))
-        self.screen.blit(self.info_text, (0,0))
-        pg.display.flip()
-
 
     def run(self):
         while True:
             self.check_events()
-            self.draw_menu()
+            self.menus[self.current_menu].draw_menu()
+
+            pg.display.flip()
+
+    def start_game(self):
+        self.game = Game(self)
+
+    def change_current_menu(self, new_menu):
+        self.current_menu = new_menu
+
 
 # Start game
 if __name__ == "__main__":
