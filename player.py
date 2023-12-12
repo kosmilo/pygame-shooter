@@ -16,8 +16,12 @@ class HealthBar:
         self.width = int(health_percentage * 100)
 
     def draw(self, screen):
-        pg.draw.rect(screen, self.health_bar_color, (10, 10, self.width, self.height))
-        pg.draw.rect(screen, self.border_color, (10, 10, 100, self.height), 2)
+         x = (screen.get_width() - self.width) // 2
+         y = 10
+         
+        # Piirrä terveyspalkki
+         pg.draw.rect(screen, self.health_bar_color, (x, y, self.width, self.height))
+         pg.draw.rect(screen, self.border_color, (x, y, 100, self.height), 2)
 
 class Player:
     def __init__(self, game):
