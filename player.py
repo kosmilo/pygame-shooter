@@ -2,6 +2,22 @@ from settings import *
 import pygame as pg
 import math
 
+class HealthBar:
+    def __init__(self, player):
+        self.player = player
+        self.max_health = player.health
+        self.width = 100  
+        self.height = 10  
+        self.health_bar_color = (0, 255, 0)  
+        self.border_color = (255, 255, 255)  
+
+    def update(self):
+        health_percentage = max(0, self.player.health / self.max_health)
+        self.width = int(health_percentage * 100)
+
+    def draw(self, screen):
+        pg.draw.rect(screen, self.health_bar_color, (10, 10, self.width, self.height))
+        pg.draw.rect(screen, self.border_color, (10, 10, 100, self.height), 2)
 
 class Player:
     def __init__(self, game):
@@ -16,8 +32,10 @@ class Player:
         self.current_point_index = 0
         self.wait_tracker = 0
 
-        # Set to avoid errors
+         # Set to avoid errors
         self.rel = 0
+        
+        self.health_bar = HealthBar(self)
 
     def check_game_over(self):
         if self.health < 1:
@@ -30,7 +48,7 @@ class Player:
     def single_fire_event(self, event):
         if event.type == pg.MOUSEBUTTONDOWN:
             if event.button == 1 and not self.shot and not self.game.weapon.reloading:
-                # self.game.sound.weapon.play()
+                 # self.game.sound.weapon.play()
                 self.shot = True
                 self.game.weapon.reloading = True
 
@@ -58,13 +76,11 @@ class Player:
             dy += speed_cos
 
         self.check_wall_collision(dx, dy)
-
         self.angle %= math.tau
 
     def move_in_direction(self, direction):
         dx, dy = 0, 0
         speed = PLAYER_SPEED * self.game.delta_time
-        # sin(0) is always 0, cos(0) is always 1
         speed_sin = speed * 0
         speed_cos = speed * 1
 
@@ -131,11 +147,7 @@ class Player:
             self.y += dy
 
     def draw(self):
-        # pg.draw.line(self.game.screen, 'yellow', (self.x * 100, self.y * 100),
-        #             (self.x * 100 + WIDTH * math.cos(self.angle),
-        #              self.y * 100 + WIDTH * math.sin(self.angle)), 2)
-        # pg.draw.circle(self.game.screen, "green", (self.x * 100, self.y * 100), 15)
-        pass
+        self.health_bar.draw(self.game.screen)
 
     def mouse_control(self):
         mx, my = pg.mouse.get_pos()
@@ -146,9 +158,8 @@ class Player:
         self.angle += self.rel * MOUSE_SENSITIVITY * self.game.delta_time
 
     def update(self):
-        # self.movement()
         self.move_to_target_positions()
-        # self.mouse_control()
+        self.health_bar.update()
         print(self.pos)
 
     @property
