@@ -3,6 +3,7 @@ import sys
 from settings import *
 from game import *
 from menus import *
+from database_link import DatabaseLink
 
 
 # Define game
@@ -13,15 +14,17 @@ class Session:
         self.clock = pg.time.Clock()
         self.delta_time = 1
 
-        self.game_font = pg.font.Font('resources/fonts/vermin_vibes_1989.ttf', 50)
+        self.db_link = DatabaseLink()
+
+        self.menu_font = pg.font.Font('resources/fonts/vermin_vibes_1989.ttf', 50)
         self.title_font = pg.font.Font('resources/fonts/vermin_vibes_1989.ttf', 200)
+        self.ui_font = pg.font.Font('resources/fonts/vermin_vibes_1989.ttf', 40)
 
         self.current_menu = 'main_menu'
         self.menus = {
             'main_menu': MainMenu(self),
             'settings': SettingsMenu(self),
             'tutorial': TutorialMenu(self),
-            'game_over': GameOverMenu(self),
             'empty': Menu(self)
         }
 
@@ -47,6 +50,7 @@ class Session:
 
     def start_game(self):
         self.game = Game(self)
+        self.menus.update({'game_over': GameOverMenu(self)})
 
     def change_current_menu(self, new_menu):
         self.current_menu = new_menu

@@ -11,6 +11,7 @@ from weapon import *
 from sound import *
 from pathfinding import *
 from crosshair import *
+from score_counter import *
 from wave import WaveManager
 from timer import Timer
 
@@ -36,6 +37,7 @@ class Game:
         self.sound = Sound(self)
         self.pathfinding = Pathfinding(self)
         self.crosshair = Crosshair(self)
+        self.score_counter = ScoreCounter(self)
         self.wave_manager = WaveManager(self)
 
     def update(self):
@@ -55,6 +57,7 @@ class Game:
         self.object_renderer.draw()
         self.weapon.draw()
         self.crosshair.draw()
+        self.score_counter.draw()
         self.timer.draw()
         # self.map.draw()
         # self.player.draw()
@@ -73,6 +76,7 @@ class Game:
 
     def game_over(self):
         self.running = False
+        self.session.change_current_menu('game_over')
 
     # Game loop
     def run(self):
