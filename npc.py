@@ -1,10 +1,13 @@
 from sprite_object import *
+from game import *
+
 
 # NPC base (inherit actual enemies from this)
 class NPC(AnimatedSprite):
     def __init__(self, game, path="resources/sprites/npc/test/0.png", pos=(2, 2), scale=1, shift=0, 
-                 health = 100, attack_dist=2, attack_damage = 5, speed = 0.03):
+                 health = 100, attack_dist=2, attack_damage = 5, speed = 0.03, base_score=100):
         super().__init__(game, path, pos, scale, shift, animation_time=180)
+        self.game = game
         self.attack_images = self.get_images(self.path + '/attack')
         self.death_images = self.get_images(self.path + '/death')
         self.pain_images = self.get_images(self.path + '/pain')
@@ -14,6 +17,7 @@ class NPC(AnimatedSprite):
         self.attack_dist = attack_dist
         self.speed = speed
         self.attack_damage = attack_damage
+        self.base_score = base_score
 
         self.size = 10
         self.alive = True
@@ -58,6 +62,8 @@ class NPC(AnimatedSprite):
                 self.image = self.death_images[0]
                 self.frame_counter += 1
             elif self.animation_trigger:
+                # increase score
+                self.game.score_counter.increase_score(self.base_score)
                 self.game.object_handler.npc_list.remove(self)
 
     def animate_pain(self):
