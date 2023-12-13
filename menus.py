@@ -119,4 +119,4 @@ class GameOverMenu(Menu):
         self.return_button.process()
 
     def send_score_to_db_link(self):
-        self.session.db_link.save_score_into_db("ffd", self.score)
+        self.session.db_link.save_score_into_db("000", self.score)

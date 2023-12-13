@@ -174,7 +174,7 @@ class Player:
     def update(self):
         # self.movement()
         self.mouse_control()
-      self.health_bar.update()
+        self.health_bar.update()
         if self.moving:
             self.move_to_target_positions()
 
