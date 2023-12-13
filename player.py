@@ -11,7 +11,7 @@ class Player:
         self.angle = PLAYER_ANGLE
         self.shot = False
         self.health = 10000
-        self.target_positions = [(20, 4), (12, 4), (4, 4), (4, 43)]
+        self.target_positions = [(64, 4), (64, 42), (4, 42), (4, 87), (69, 87), (69, 133), (122 ,133), (122, 4)]
         self.current_point_index = 0
         self.wait_tracker = 0
 
