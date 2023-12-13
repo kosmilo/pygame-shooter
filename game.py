@@ -14,6 +14,7 @@ from crosshair import *
 from score_counter import *
 from wave import WaveManager
 from timer import Timer
+from hand_tracking import HandTracking
 
 # Define game
 class Game:

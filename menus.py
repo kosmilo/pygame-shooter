@@ -38,6 +38,7 @@ class MainMenu(Menu):
         self.settings_button = Button(self, 0, HEIGHT-100, 250, 100, 'settings', self.open_settings_menu)
         self.start_game_button = Button(self, WIDTH/2-350/2, HEIGHT-100, 350, 100, 'start game', self.session.start_game)
 
+
         self.db_data = self.session.db_link.get_top5_scores_from_db()
 
     def draw_menu(self):
@@ -70,7 +71,7 @@ class SettingsMenu(Menu):
         self.title_text = self.title_font.render('SETTINGS', True, (200, 0, 0))
         self.title_rect = self.title_text.get_rect(midtop=self.screen.get_rect().midtop)
 
-        self.return_button = Button(self, WIDTH-250, HEIGHT-100, 250, 100, 'return', self.open_main_menu)
+        self.return_button = Button(self, WIDTH-250, HEIGHT-100, 250, 100, 'return', self.open_main_menu, True)
 
     def draw_menu(self):
         self.screen.fill((0, 0, 0))
@@ -86,7 +87,7 @@ class TutorialMenu(Menu):
         self.title_text = self.title_font.render('TUTORIAL', True, (200, 0, 0))
         self.title_rect = self.title_text.get_rect(midtop=self.screen.get_rect().midtop)
 
-        self.return_button = Button(self, 0, HEIGHT-100, 250, 100, 'return', self.open_main_menu)
+        self.return_button = Button(self, 0, HEIGHT-100, 250, 100, 'return', self.open_main_menu, True)
 
     def draw_menu(self):
         self.screen.fill((0, 0, 0))
@@ -107,7 +108,7 @@ class GameOverMenu(Menu):
         self.score_text = self.menu_font.render('your score: {}'.format(self.score), True, 'White')
         self.score_rect = self.score_text.get_rect(midtop=self.title_rect.midbottom)
 
-        self.return_button = Button(self, WIDTH/2-250/2, HEIGHT-100, 250, 100, 'return', self.open_main_menu)
+        self.return_button = Button(self, WIDTH/2-250/2, HEIGHT-100, 250, 100, 'return', self.open_main_menu, True)
 
         self.send_score_to_db_link()
 

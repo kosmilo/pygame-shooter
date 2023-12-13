@@ -1,10 +1,11 @@
 import math
+import pygame as pg
 
 # Game setting
 RES = WIDTH, HEIGHT = 1200, 600  # 1920, 1080 (can be changed to match actual screen)
 HALF_WIDTH = WIDTH // 2
 HALF_HEIGHT = HEIGHT // 2
-FPS = 60
+FPS = 30
 
 PLAYER_POS = 2, 4
 PLAYER_ANGLE = 0
