@@ -52,8 +52,8 @@ class Player:
         self.check_game_over()
 
     def single_fire_event(self, event):
-        if event.type == pg.MOUSEBUTTONDOWN:
-            if event.button == 1 and not self.shot and not self.game.weapon.reloading:
+        if event.type == FIST_CLOSED_EVENT:
+            if not self.shot and not self.game.weapon.reloading:
                  # self.game.sound.weapon.play()
                 self.shot = True
                 self.game.weapon.reloading = True
@@ -174,7 +174,7 @@ class Player:
     def update(self):
         # self.movement()
         # self.mouse_control()
-        self.health_bar.update()
+        # self.health_bar.update()
         if self.moving:
             self.move_to_target_positions()
 

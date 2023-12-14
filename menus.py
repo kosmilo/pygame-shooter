@@ -34,10 +34,9 @@ class MainMenu(Menu):
         self.hs_title_text = self.menu_font.render('high scores', True, (200, 0, 0))
         self.hs_title_rect = self.hs_title_text.get_rect(midtop=self.title_rect.midbottom)
 
-        self.tutorial_button = Button(self, WIDTH-250, HEIGHT-100, 250, 100, 'tutorial', self.open_tutorial_menu)
+        self.tutorial_button = Button(self, WIDTH-500, HEIGHT-500, 500, 500, 'tutorial', self.open_tutorial_menu)
         self.settings_button = Button(self, 0, HEIGHT-100, 250, 100, 'settings', self.open_settings_menu)
         self.start_game_button = Button(self, WIDTH/2-350/2, HEIGHT-100, 350, 100, 'start game', self.session.start_game)
-
 
         self.db_data = self.session.db_link.get_top5_scores_from_db()
 
@@ -50,8 +49,8 @@ class MainMenu(Menu):
         self.screen.blit(self.hs_title_text, self.hs_title_rect)
 
         self.tutorial_button.process()
-        self.settings_button.process()
-        self.start_game_button.process()
+        # self.settings_button.process()
+        # self.start_game_button.process()
 
     def draw_high_scores(self):
         for i, (name, score) in enumerate(self.db_data):

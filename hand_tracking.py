@@ -51,11 +51,11 @@ class HandTracking:
             # print('timestamp: {}, gesture: {}, x: {} out of {}, y: {} out of {}'.format(
             #    timestamp_ms, self.get_hand_gesture_name(result), screen_x, WIDTH, screen_y, HEIGHT))
 
-            # if the gesture is a closed fist, simulate mouse click
+            # if the gesture is a closed fist, send event
             if self.get_hand_gesture_name(result) == 'Closed_Fist':
-                mouse_click_event = pg.event.Event(pg.MOUSEBUTTONDOWN, {'pos': (screen_x, screen_y), 'button': 1})
-                pg.event.post(mouse_click_event)
-                print('closed fist/simulated left mouse click at {}, {}'.format(screen_x, screen_y))
+                fist_closed_event = pg.event.Event(FIST_CLOSED_EVENT)
+                pg.event.post(fist_closed_event)
+                print('fist closed event')
         else:
             print('hand not visible')  # this can be replaced with a warning or some such
 
