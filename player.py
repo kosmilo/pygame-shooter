@@ -17,7 +17,7 @@ class HealthBar:
 
     def draw(self, screen):
          x = (screen.get_width() - self.width) // 2
-         y = (screen.get_height() - self.width) // 2
+         y = 10
          
          pg.draw.rect(screen, self.health_bar_color, (x, y, self.width, self.height))
          pg.draw.rect(screen, self.border_color, (x, y, 100, self.height), 2)
