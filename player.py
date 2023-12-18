@@ -6,21 +6,21 @@ class HealthBar:
     def __init__(self, player):
         self.player = player
         self.max_health = player.health
-        self.width = 100  
-        self.height = 10  
-        self.health_bar_color = (0, 255, 0)  
-        self.border_color = (255, 255, 255)  
+        self.width = 100
+        self.height = 10
+        self.health_bar_color = (0, 255, 0)
+        self.border_color = (255, 255, 255)
 
     def update(self):
         health_percentage = max(0, self.player.health / self.max_health)
         self.width = int(health_percentage * 100)
 
     def draw(self, screen):
-         x = (screen.get_width() - self.width) // 2
-         y = 10
-         
-         pg.draw.rect(screen, self.health_bar_color, (x, y, self.width, self.height))
-         pg.draw.rect(screen, self.border_color, (x, y, 100, self.height), 2)
+        x = (screen.get_width() - self.width) // 2
+        y = 10
+
+        pg.draw.rect(screen, self.health_bar_color, (x, y, self.width, self.height))
+        pg.draw.rect(screen, self.border_color, (x, y, 100, self.height), 2)
 
 class Player:
     def __init__(self, game):
@@ -35,12 +35,12 @@ class Player:
         self.cur_point_in = 0  # current point index
         self.cur_track_in = 0  # current track index
         self.wait_tracker = 0
-        
+
         self.moving = False
 
         # Set to avoid errors
         self.rel = 0
-        
+
         self.health_bar = HealthBar(self)
 
     def check_game_over(self):
@@ -49,12 +49,13 @@ class Player:
 
     def get_damage(self, damage):
         self.health -= damage
+        self.health_bar.update()  # Päivitä HealthBar pelaajan vahingon mukaan
         self.check_game_over()
 
     def single_fire_event(self, event):
         if event.type == pg.MOUSEBUTTONDOWN:
             if event.button == 1 and not self.shot and not self.game.weapon.reloading:
-                 # self.game.sound.weapon.play()
+                # self.game.sound.weapon.play()
                 self.shot = True
                 self.game.weapon.reloading = True
 
