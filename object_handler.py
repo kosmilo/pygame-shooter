@@ -18,11 +18,6 @@ class ObjectHandler:
         add_sprite(Candlebra(game, pos=(2, 2)))
         add_sprite(Torch(game, pos=(2, 3)))
 
-        # NPCs
-        add_npc(NPC(game, path="resources/sprites/npc/jellyfish/0.png", pos=(8, 5), scale=2, attack_dist=3, health=100, attack_damage=6))
-        add_npc(NPC(game, path="resources/sprites/npc/jellyfish/0.png", pos=(9, 4), attack_dist=2, speed=0.02))
-        add_npc(NPC(game, path="resources/sprites/npc/jellyfish/0.png", pos=(8, 4), attack_dist=1, health=150, attack_damage=4))
-
     def update(self):
         self.npc_positions = {npc.map_pos for npc in self.npc_list if npc.alive}
         [sprite.update() for sprite in self.sprite_list]
