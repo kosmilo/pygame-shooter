@@ -1,6 +1,6 @@
 import pygame as pg
 from main import *
-from button import *
+from button import Button, InputField
 
 
 class Menu:
@@ -109,14 +109,41 @@ class GameOverMenu(Menu):
 
         self.return_button = Button(self, WIDTH/2-250/2, HEIGHT-100, 250, 100, 'return', self.open_main_menu)
 
-        self.send_score_to_db_link()
+        self.playername_input = InputField(self, WIDTH/2-400/2, HEIGHT-600, 400, 100, 'insert name')
+
+        self.name_too_long = False
+        self.name_too_long_text = self.menu_font.render('name should be max 3 characters', True, 'Red')
+        self.name_too_long_rect = self.name_too_long_text.get_rect(midbottom=self.playername_input.get_rect().midtop)
+
+        self.save_score_button = Button(self, WIDTH/2-350/2, HEIGHT-450, 350, 100, 'save score', self.send_score_to_db_link, False)
+
+        self.score_saved = False
+        self.score_saved_text = self.menu_font.render('saved!', True, 'White')
+        self.score_saved_rect = self.score_saved_text.get_rect(midtop=self.save_score_button.get_rect().midbottom)
 
     def draw_menu(self):
         self.screen.fill((0,0,0))
         self.screen.blit(self.title_text, self.title_rect)
         self.screen.blit(self.score_text, self.score_rect)
+        if self.name_too_long:
+            self.screen.blit(self.name_too_long_text, self.name_too_long_rect)
+        if self.score_saved:
+            self.screen.blit(self.score_saved_text, self.score_saved_rect)
 
         self.return_button.process()
+        self.save_score_button.process()
+        self.playername_input.process()
 
     def send_score_to_db_link(self):
-        self.session.db_link.save_score_into_db("000", self.score)
+        playername_text = self.playername_input.get_user_text()
+        if playername_text == '':
+            self.session.db_link.save_score_into_db("NUL", self.score)
+            self.name_too_long = False
+        elif len(playername_text) > 3:
+            self.name_too_long = True
+        else:
+            self.session.db_link.save_score_into_db(playername_text, self.score)
+            self.name_too_long = False
+            self.score_saved = True
+
+
