@@ -1,7 +1,7 @@
 import math
 
 # Game setting
-RES = WIDTH, HEIGHT = 1200, 600  # 1920, 1080 (can be changed to match actual screen)
+RES = WIDTH, HEIGHT = 1680, 1000   # 1920, 1080 (can be changed to match actual screen)
 HALF_WIDTH = WIDTH // 2
 HALF_HEIGHT = HEIGHT // 2
 FPS = 60
@@ -31,3 +31,6 @@ SCALE = WIDTH // NUM_RAYS
 
 TEXTURE_SIZE = 256
 HALF_TEXTURE_SIZE = TEXTURE_SIZE // 2
+
+TIME_LIMIT_S = 300
+TIME_LIMIT_MS = TIME_LIMIT_S * 1000
