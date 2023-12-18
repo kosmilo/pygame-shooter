@@ -2,6 +2,7 @@ from settings import *
 import pygame as pg
 import math
 
+
 class HealthBar:
     def __init__(self, player):
         self.player = player
@@ -22,6 +23,7 @@ class HealthBar:
          pg.draw.rect(screen, self.health_bar_color, (x, y, self.width, self.height))
          pg.draw.rect(screen, self.border_color, (x, y, 100, self.height), 2)
 
+        
 class Player:
     def __init__(self, game):
         self.game = game
@@ -30,13 +32,15 @@ class Player:
         self.angle = PLAYER_ANGLE
         self.shot = False
         self.health = 10000
-        self.target_positions = [((6, 6), (3, 4)),
-                                 ((7, 2), (3, 2))]
+
+        self.target_positions = [((64, 4), (64, 42), (4, 42), (4, 87), (69, 87), (69, 133), (122 ,133), (122, 4)),
+                                ((64, 4), (64, 42))]
         self.cur_point_in = 0  # current point index
         self.cur_track_in = 0  # current track index
         self.wait_tracker = 0
         
         self.moving = False
+        self.auto_rotate = True  # camera rotation use mouse or automate
 
         # Set to avoid errors
         self.rel = 0
@@ -147,6 +151,7 @@ class Player:
     def calculate_distance_to_next_pos(self):
         cur_x, cur_y = self.pos
         new_x, new_y = self.target_positions[self.cur_track_in][self.cur_point_in]
+
         distance = math.sqrt((cur_x - new_x)**2 + (cur_y - new_y)**2)
         return distance
 
@@ -173,10 +178,42 @@ class Player:
 
     def update(self):
         # self.movement()
-        self.mouse_control()
-        self.health_bar.update()
         if self.moving:
             self.move_to_target_positions()
+            
+        # CAMERA UPDATE
+        # Check if "k" is pressed
+        keys = pg.key.get_pressed()
+        if keys[pg.K_k]:
+            self.auto_rotate = not self.auto_rotate  # Change rotation automatically
+
+        # Update Camera angle
+        if self.auto_rotate:
+            self.auto_rotate_camera()
+        else:
+            self.mouse_control()
+            
+        self.health_bar.update()
+
+
+    # camera rotation to NPC, can be toggled with K
+    def cameraUpdate(self):
+        self.movement()
+
+
+    def auto_rotate_camera(self):
+        if self.game.object_handler.npc_list:
+            avg_npc_pos = (
+                sum(npc.map_pos[0] for npc in self.game.object_handler.npc_list) / len(self.game.object_handler.npc_list),
+                sum(npc.map_pos[1] for npc in self.game.object_handler.npc_list) / len(self.game.object_handler.npc_list)
+            )
+
+            angle_to_avg_npc = math.atan2(avg_npc_pos[1] - self.y, avg_npc_pos[0] - self.x)
+
+            smoothing_factor = 0.1
+
+            angle_difference = (angle_to_avg_npc - self.angle + math.pi) % (2 * math.pi) - math.pi
+            self.angle += angle_difference * smoothing_factor
 
     @property
     def pos(self):
