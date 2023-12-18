@@ -1,4 +1,5 @@
 from game import *
+from enemy_types import JellyfishEnemy, AngelEnemy, SnakeEnemy
 
 
 class Wave:
@@ -15,8 +16,8 @@ class Wave:
 class WaveManager:
     def __init__(self, game):
         self.game = game
-        self.wave_list = [Wave(game, [NPC(game, pos=(8, 3)), NPC(game, pos=(9, 5))]),
-                          Wave(game, [NPC(game, pos=(9, 3)), NPC(game, pos=(7, 4))])]
+        self.wave_list = [Wave(game, [SnakeEnemy(game, pos=(8, 3)), JellyfishEnemy(game, pos=(9, 5))]),
+                          Wave(game, [AngelEnemy(game, pos=(9, 3)), JellyfishEnemy(game, pos=(7, 4))])]
 
         self.object_handler = game.object_handler
         self.current_wave_index = 0
