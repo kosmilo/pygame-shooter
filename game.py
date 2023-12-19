@@ -22,6 +22,7 @@ class Game:
         self.screen = session.screen
         self.clock = session.clock
         self.delta_time = session.delta_time
+        self.sound = session.sound
         self.new_game()
         self.running = True
         self.run()
@@ -34,11 +35,11 @@ class Game:
         self.raycasting = RayCasting(self)
         self.object_handler = ObjectHandler(self)
         self.weapon = Weapon(self)
-        self.sound = Sound(self)
         self.pathfinding = Pathfinding(self)
         self.crosshair = Crosshair(self)
         self.score_counter = ScoreCounter(self)
         self.wave_manager = WaveManager(self)
+        pg.mixer.music.play(loops=-1, fade_ms=1000)
 
     def update(self):
         self.player.update()
@@ -77,6 +78,8 @@ class Game:
     def game_over(self):
         self.running = False
         self.session.change_current_menu('game_over')
+        pg.mixer.music.stop()
+        self.sound.game_over.play()
 
     # Game loop
     def run(self):

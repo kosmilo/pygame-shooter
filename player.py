@@ -51,11 +51,12 @@ class Player:
         self.health -= damage
         self.health_bar.update()  # Päivitä HealthBar pelaajan vahingon mukaan
         self.check_game_over()
+        # self.game.sound.alien_attack.play()
 
     def single_fire_event(self, event):
         if event.type == pg.MOUSEBUTTONDOWN:
             if event.button == 1 and not self.shot and not self.game.weapon.reloading:
-                # self.game.sound.weapon.play()
+                self.game.sound.weapon.play()
                 self.shot = True
                 self.game.weapon.reloading = True
 
