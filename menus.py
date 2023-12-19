@@ -28,7 +28,7 @@ class MainMenu(Menu):
     def __init__(self, session):
         Menu.__init__(self, session)
 
-        self.title_text = self.title_font.render('GAME TITLE', True, (200, 0, 0))
+        self.title_text = self.title_font.render('DAGON', True, (200, 0, 0))
         self.title_rect = self.title_text.get_rect(midtop=self.screen.get_rect().midtop)
 
         self.hs_title_text = self.menu_font.render('high scores', True, (200, 0, 0))
@@ -37,6 +37,7 @@ class MainMenu(Menu):
         self.tutorial_button = Button(self, WIDTH-250, HEIGHT-450, 250, 100, 'tutorial', self.open_tutorial_menu, True)
         self.settings_button = Button(self, 0, HEIGHT-450, 250, 100, 'settings', self.open_settings_menu, True)
         self.start_game_button = Button(self, WIDTH/2-350/2, HEIGHT-250, 350, 100, 'start game', self.session.start_game, True)
+
 
         self.db_data = self.session.db_link.get_top5_scores_from_db()
 

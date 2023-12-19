@@ -14,6 +14,7 @@ from crosshair import *
 from score_counter import *
 from wave import WaveManager
 from timer import Timer
+from hand_tracking import HandTracking
 
 # Define game
 class Game:
@@ -39,7 +40,10 @@ class Game:
         self.crosshair = Crosshair(self)
         self.score_counter = ScoreCounter(self)
         self.wave_manager = WaveManager(self)
+        self.hand_tracking = HandTracking(self)
+        
         pg.mixer.music.play(loops=-1, fade_ms=1000)
+        
 
     def update(self):
         self.player.update()
@@ -51,6 +55,7 @@ class Game:
         self.timer.update(self.delta_time)
         pg.display.flip()
         self.delta_time = self.clock.tick(FPS)
+        self.hand_tracking.update()
 
         pg.display.set_caption(f"fps: {self.clock.get_fps() :.1f}")
 

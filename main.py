@@ -4,6 +4,7 @@ from settings import *
 from game import *
 from menus import *
 from database_link import DatabaseLink
+from hand_tracking import HandTracking
 
 
 # Define game
