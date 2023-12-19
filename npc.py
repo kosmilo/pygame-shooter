@@ -51,8 +51,13 @@ class NPC(AnimatedSprite):
             self.check_wall_collision(dx, dy)
 
     def attack(self):
-        if self.animation_trigger:
+        if self.animation_trigger and self.frame_counter < len(self.attack_images) - 1:
+            self.attack_images.rotate(-1)
+            self.image = self.attack_images[0]
+            self.frame_counter += 1
+        elif self.animation_trigger:
             self.game.player.get_damage(self.attack_damage)
+            self.frame_counter = 0
 
     # Play death animation and remove npc from npc list
     def animate_death(self):
@@ -70,6 +75,7 @@ class NPC(AnimatedSprite):
         self.animate(self.pain_images)
         if self.animation_trigger:
             self.pain = False
+
 
     # Check if play hit's npc and if yes, stop shot and handle damage
     def check_hit_in_npc(self):
@@ -90,7 +96,6 @@ class NPC(AnimatedSprite):
             if self.pain:
                 self.animate_pain()
             elif self.ray_cast_player_npc() and self.dist < self.attack_dist and -self.IMAGE_HALF_WIDTH < self.screen_x < (WIDTH + self.IMAGE_HALF_WIDTH) and self.norm_dist > 0.5:
-                self.animate(self.attack_images)
                 self.attack()
             else:
                 self.animate(self.walk_images)
