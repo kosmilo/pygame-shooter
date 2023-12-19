@@ -13,8 +13,8 @@ mp_draw = mp.solutions.drawing_utils
 
 
 class HandTracking:
-    def __init__(self, session):
-        self.session = session
+    def __init__(self, game):
+        self.game = game
         self.model_path = 'resources/gesture_recognizer.task'
         self.vid = cv2.VideoCapture(0)
         self.options = GestureRecognizerOptions(

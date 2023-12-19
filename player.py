@@ -31,7 +31,7 @@ class Player:
         self.x, self.y = PLAYER_POS
         self.angle = PLAYER_ANGLE
         self.shot = False
-        self.health = 40
+        self.health = 2700
 
         self.target_positions = [((2, 2), (2, 4), (5, 4), (5, 6)),
                                  ((7, 6), (10, 6)),
@@ -50,7 +50,7 @@ class Player:
 
     def check_game_over(self):
         if self.health < 1:
-            print('GAME OVER')
+            self.game.game_over()
 
     def get_damage(self, damage):
         self.health -= damage
