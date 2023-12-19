@@ -28,7 +28,7 @@ class MainMenu(Menu):
     def __init__(self, session):
         Menu.__init__(self, session)
 
-        self.title_text = self.title_font.render('GAME TITLE', True, (200, 0, 0))
+        self.title_text = self.title_font.render('DAGON', True, (200, 0, 0))
         self.title_rect = self.title_text.get_rect(midtop=self.screen.get_rect().midtop)
 
         self.hs_title_text = self.menu_font.render('high scores', True, (200, 0, 0))

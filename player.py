@@ -31,10 +31,11 @@ class Player:
         self.x, self.y = PLAYER_POS
         self.angle = PLAYER_ANGLE
         self.shot = False
-        self.health = 10000
+        self.health = 40
 
-        self.target_positions = [((64, 4), (64, 42), (4, 42), (4, 87), (69, 87), (69, 133), (122 ,133), (122, 4)),
-                                ((64, 4), (64, 42))]
+        self.target_positions = [((2, 2), (2, 4), (5, 4), (5, 6)),
+                                 ((7, 6), (10, 6)),
+                                 ((6, 6), (6, 4))]
         self.cur_point_in = 0  # current point index
         self.cur_track_in = 0  # current track index
         self.wait_tracker = 0
@@ -176,31 +177,6 @@ class Player:
         self.rel = max(-MOUSE_MAX_REL, min(MOUSE_MAX_REL, self.rel))
         self.angle += self.rel * MOUSE_SENSITIVITY * self.game.delta_time
 
-    def update(self):
-        # self.movement()
-        if self.moving:
-            self.move_to_target_positions()
-            
-        # CAMERA UPDATE
-        # Check if "k" is pressed
-        keys = pg.key.get_pressed()
-        if keys[pg.K_k]:
-            self.auto_rotate = not self.auto_rotate  # Change rotation automatically
-
-        # Update Camera angle
-        if self.auto_rotate:
-            self.auto_rotate_camera()
-        else:
-            self.mouse_control()
-            
-        self.health_bar.update()
-
-
-    # camera rotation to NPC, can be toggled with K
-    def cameraUpdate(self):
-        self.movement()
-
-
     def auto_rotate_camera(self):
         if self.game.object_handler.npc_list:
             avg_npc_pos = (
@@ -214,6 +190,25 @@ class Player:
 
             angle_difference = (angle_to_avg_npc - self.angle + math.pi) % (2 * math.pi) - math.pi
             self.angle += angle_difference * smoothing_factor
+
+    def update(self):
+        # self.movement()
+        if self.moving:
+            self.move_to_target_positions()
+            
+        # CAMERA UPDATE
+        # Check if "k" is pressed
+        # keys = pg.key.get_pressed()
+        # if keys[pg.K_k]:
+            # self.auto_rotate = not self.auto_rotate  # Change rotation automatically
+
+        # Update Camera angle
+        if self.auto_rotate:
+            self.auto_rotate_camera()
+        else:
+            self.mouse_control()
+            
+        self.health_bar.update()
 
     @property
     def pos(self):
