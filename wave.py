@@ -16,8 +16,12 @@ class Wave:
 class WaveManager:
     def __init__(self, game):
         self.game = game
-        self.wave_list = [Wave(game, [SnakeEnemy(game, pos=(8, 3)), JellyfishEnemy(game, pos=(9, 5))]),
-                          Wave(game, [AngelEnemy(game, pos=(9, 3)), JellyfishEnemy(game, pos=(7, 4))])]
+        self.wave_list = [
+            Wave(game, [SnakeEnemy(game, pos=(3, 5)), JellyfishEnemy(game, pos=(4, 3))]),
+            Wave(game, [JellyfishEnemy(game, pos=(10, 6))]),
+            Wave(game, [SnakeEnemy(game, pos=(11, 9)), AngelEnemy(game, pos=(12, 9)), JellyfishEnemy(game, pos=(10, 9))]),
+            Wave(game, [SnakeEnemy(game, pos=(6, 1)), JellyfishEnemy(game, pos=(7, 2)), JellyfishEnemy(game, pos=(6, 1))])
+                          ]
 
         self.object_handler = game.object_handler
         self.current_wave_index = 0

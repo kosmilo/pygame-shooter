@@ -4,6 +4,7 @@ from settings import *
 from game import *
 from menus import *
 from database_link import DatabaseLink
+from hand_tracking import HandTracking
 
 
 # Define game
@@ -15,6 +16,7 @@ class Session:
         self.delta_time = 1
 
         self.db_link = DatabaseLink()
+        self.sound = Sound(self)
 
         self.menu_font = pg.font.Font('resources/fonts/vermin_vibes_1989.ttf', 50)
         self.title_font = pg.font.Font('resources/fonts/vermin_vibes_1989.ttf', 200)

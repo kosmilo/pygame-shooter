@@ -7,6 +7,7 @@ class Button:
     # when making a new button: make sure to include its button.process() in an update loop like you would a blit()
     # otherwise the button won't render or work
     def __init__(self, menu, x, y, width, height, button_text='Button', onclick_function=None, multiple_presses=False):
+        self.menu = menu
         self.x = x
         self.y = y
         self.width = width
@@ -37,14 +38,20 @@ class Button:
         if self.button_rect.collidepoint(mouse_pos):
             self.button_surface.fill(self.fill_colors['hover'])
             if pg.mouse.get_pressed(num_buttons=3)[0]:
+                print('button pressed')
                 self.button_surface.fill(self.fill_colors['pressed'])
                 if self.multiple_presses:
                     self.onclick_function()
+                    self.play_button_sound()
                 elif not self.already_pressed:
                     self.onclick_function()
                     self.already_pressed = True
+                    self.play_button_sound()
 
         self.draw_button()
+
+    def play_button_sound(self):
+        self.menu.session.sound.button_click.play()
 
     def draw_button(self):
         self.button_surface.blit(self.button_surf, [
@@ -73,10 +80,12 @@ class InputField(Button):
             if pg.mouse.get_pressed(num_buttons=3)[0]:
                 self.button_surface.fill(self.fill_colors['pressed'])
                 self.take_player_input = True
+                self.play_button_sound()
 
     def detect_and_handle_input(self):
         for event in pg.event.get():
             if event.type == pg.KEYDOWN:
+                self.play_key_pressed_sound()
                 if event.key == pg.K_BACKSPACE:
                     self.user_text = self.user_text[:-1]
                 elif event.key == pg.K_RETURN:
@@ -104,5 +113,8 @@ class InputField(Button):
         ])
 
         self.screen.blit(self.button_surface, self.button_rect)
+
+    def play_key_pressed_sound(self):
+        self.menu.session.sound.key_pressed.play()
 
 
