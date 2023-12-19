@@ -38,6 +38,7 @@ class MainMenu(Menu):
         self.settings_button = Button(self, 0, HEIGHT-450, 250, 100, 'settings', self.open_settings_menu, True)
         self.start_game_button = Button(self, WIDTH/2-350/2, HEIGHT-250, 350, 100, 'start game', self.session.start_game, True)
 
+
         self.db_data = self.session.db_link.get_top5_scores_from_db()
 
     def draw_menu(self):

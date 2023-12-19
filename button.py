@@ -37,6 +37,7 @@ class Button:
         if self.button_rect.collidepoint(mouse_pos):
             self.button_surface.fill(self.fill_colors['hover'])
             if pg.mouse.get_pressed(num_buttons=3)[0]:
+                print('button pressed')
                 self.button_surface.fill(self.fill_colors['pressed'])
                 if self.multiple_presses:
                     self.onclick_function()
