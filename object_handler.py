@@ -15,8 +15,8 @@ class ObjectHandler:
         self.npc_positions = {}
 
         # Objects
-        add_sprite(Candlebra(game, pos=(2, 2)))
-        add_sprite(Torch(game, pos=(2, 3)))
+        add_sprite(Candlebra(game, pos=(1, 2)))
+        add_sprite(Torch(game, pos=(3, 5)))
 
     def update(self):
         self.npc_positions = {npc.map_pos for npc in self.npc_list if npc.alive}

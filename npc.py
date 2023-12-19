@@ -12,7 +12,6 @@ class NPC(AnimatedSprite):
         self.death_images = self.get_images(self.path + '/death')
         self.pain_images = self.get_images(self.path + '/pain')
         self.walk_images = self.get_images(self.path + '/walk')
-
         self.health = health
         self.attack_dist = attack_dist
         self.speed = speed
